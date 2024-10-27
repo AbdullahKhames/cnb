@@ -9,20 +9,20 @@ typedef struct SampleData{
     float average;
     int size;
 }SampleData;
-
-SampleData** createSampleData(int size) {
+SampleData* createSampleData(int size) {
+    SampleData* sample  = (SampleData*) malloc(sizeof(SampleData));
+    sample->size = size;
+    sample->average = 0;
+    sample->data = (float*) malloc(sizeof(float) * size);
+    return sample;
+}
+SampleData** createSampleDataArr(int size) {
     int i = 0;
-    SampleData* firstSample  = (SampleData*) malloc(sizeof(SampleData));
-    SampleData* secondSample = (SampleData*) malloc(sizeof(SampleData));
+    SampleData* firstSample  = createSampleData(size);
+    SampleData* secondSample = createSampleData(size);
     SampleData** samples = (SampleData**) malloc(sizeof(SampleData) * 2);
     samples[0] = firstSample;
     samples[1] = secondSample;
-    firstSample->size = size;
-    secondSample->size = size;
-    secondSample->average = 0;
-    firstSample->average = 0;
-    firstSample->data = (float*) malloc(sizeof(float) * firstSample->size);
-    secondSample->data = (float*) malloc(sizeof(float) * firstSample->size);
 
     for (; i < size; i++) {
         cout << "enter number " << i + 1 << " element in first samples \n";
@@ -65,7 +65,7 @@ float calculateCorrelationCoefficient() {
         return (0.0);
     }
 
-    SampleData** samples = createSampleData(sampleSize);
+    SampleData** samples = createSampleDataArr(sampleSize);
     firstSample = samples[0];
     secondSample = samples[1];
     correlationCoefficient = calculateCoefficient(firstSample, secondSample);
