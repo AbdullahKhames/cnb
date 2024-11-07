@@ -1,10 +1,17 @@
 #include "main.h"
 
 int main() {
-    int start[] = {9, 10, 11, 12, 13, 15};
-    int end[] = {11, 11, 12, 14, 15, 16};
-
-    int *arr = activityselectionAlgo(start, end, 6);
-    printArr(arr, 6);
+    StringNode *head = createStringLinkedList("ahmed");
+    addToStringLinkedList(head, "abdullah");
+    addToStringLinkedList(head, "mohamed");
+    addToStringLinkedList(head, "amr");
+    addToStringLinkedList(head, "mahmoud");
+    printStringLinkedList(head);
+    head = deleteFromStringLinkedList(head, 4);
+    printStringLinkedList(head);
+    // StringNode* node = getFromStringLinkedList(head, 4);
+    // if (node) {
+    //     cout << node->data << endl;
+    // }
     return (0);
 }

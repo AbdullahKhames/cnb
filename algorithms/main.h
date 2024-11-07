@@ -13,6 +13,16 @@ typedef struct SampleData{
     int size;
 }SampleData;
 
+typedef struct StringNode{
+    string data;
+    StringNode *next;
+}StringNode;
+
+StringNode* createStringLinkedList(string data);
+StringNode* addToStringLinkedList(StringNode* head, string data);
+StringNode* getFromStringLinkedList(StringNode* head, int index);
+StringNode* deleteFromStringLinkedList(StringNode* head, int index);
+void printStringLinkedList(StringNode* head);
 float calculateTrapezoidArea();
 float calculateParllelogramArea();
 float calculateCircleArea();
