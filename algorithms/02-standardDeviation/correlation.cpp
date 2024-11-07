@@ -1,42 +1,5 @@
-#include <iostream>
-#include <cmath>
-#include <iomanip>
+#include "../main.h"
 
-using namespace std;
-
-typedef struct SampleData{
-    float *data;
-    float average;
-    int size;
-}SampleData;
-SampleData* createSampleData(int size) {
-    SampleData* sample  = (SampleData*) malloc(sizeof(SampleData));
-    sample->size = size;
-    sample->average = 0;
-    sample->data = (float*) malloc(sizeof(float) * size);
-    return sample;
-}
-SampleData** createSampleDataArr(int size) {
-    int i = 0;
-    SampleData* firstSample  = createSampleData(size);
-    SampleData* secondSample = createSampleData(size);
-    SampleData** samples = (SampleData**) malloc(sizeof(SampleData) * 2);
-    samples[0] = firstSample;
-    samples[1] = secondSample;
-
-    for (; i < size; i++) {
-        cout << "enter number " << i + 1 << " element in first samples \n";
-        cin >> firstSample->data[i];
-        firstSample->average += firstSample->data[i];
-        cout << "enter number " << i + 1 << " element in second samples \n";
-        cin >> secondSample->data[i];
-        secondSample->average += secondSample->data[i];
-    }
-    firstSample->average = firstSample->average / size;
-    secondSample->average = secondSample->average / size;
-    
-    return samples;
-}
 
 float calculateCoefficient(SampleData *firstSample, SampleData *secondSample){
     float numerator = 0, denominator = 0, firstSampleSum = 0, secondSampleSum = 0, firstSampleTerm = 0, secondSampleTerm = 0;
@@ -77,8 +40,8 @@ float calculateCorrelationCoefficient() {
     return correlationCoefficient;
 }
 
-int main(){
-    float result = calculateCorrelationCoefficient();
-    cout << fixed << setprecision(2) << result << endl;
-    return (0);
-}
+// int main(){
+//     float result = calculateCorrelationCoefficient();
+//     cout << fixed << setprecision(2) << result << endl;
+//     return (0);
+// }

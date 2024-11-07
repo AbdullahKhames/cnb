@@ -1,22 +1,4 @@
-#include <iostream>
-
-using namespace std;
-void printArr(int *arr, int n){
-    for (int i = 0; i < n; i++)
-    {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-}
-int* createArr(int n){
-    int *arr = (int *)malloc(sizeof(int) * n);
-    for (int i = 0; i < n; i++)
-    {
-        cout << "enter number " << i + 1 << "elemnt of the array\n";
-        cin >> arr[i];
-    }
-    return (arr);
-}
+#include "../main.h"
 
 void insertionSort(int *arr, int n){
     for (int i = 1; i < n; i++) {
@@ -92,18 +74,18 @@ void mergeSort(int *arr, int start, int end) {
 }
 
 
-int main() {
-    // cout << "enter size of the array to be sorted" << endl;
-    // int n;
-    // cin >> n;
-    // int *arr = createArr(n);
-    int n = 5;
-    int arr[5] = {5, 4, 3, 2, 1};
-    cout << "printing the array before sorting" << endl;
-    printArr(arr, n);
-    mergeSort(arr, 0, n - 1);
-    cout << "printing the array after sorting" << endl;
-    printArr(arr, n);
-    // free(arr);
-    return (0);
-}
+// int main() {
+//     // cout << "enter size of the array to be sorted" << endl;
+//     // int n;
+//     // cin >> n;
+//     // int *arr = createIntArr(n);
+//     int n = 5;
+//     int arr[5] = {5, 4, 3, 2, 1};
+//     cout << "printing the array before sorting" << endl;
+//     printArr(arr, n);
+//     mergeSort(arr, 0, n - 1);
+//     cout << "printing the array after sorting" << endl;
+//     printArr(arr, n);
+//     // free(arr);
+//     return (0);
+// }

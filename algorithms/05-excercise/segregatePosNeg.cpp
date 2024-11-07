@@ -1,18 +1,6 @@
-#include <iostream>
+#include "../main.h"
 
-using namespace std;
-void printArr(int *arr, int n){
-    for (int i = 0; i < n; i++)
-    {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
-}
-void swap(int *arr, int x, int y ) {
-    int temp = arr[x];
-    arr[x] = arr[y];
-    arr[y] = temp;
-}
+
 void segregate1(int *arr, int n) {
     for (int i = 0; i < n - 1; i++) {
         if (arr[i + 1] < 0 && arr[i] >= 0)
@@ -81,11 +69,11 @@ void segregate(int *arr, int start, int end) {
     
 }
 
-int main() {
-    int n = 8;
-    int arr [] = {9, -3, 5, -2, -8, -6, 1, 3};
-    printArr(arr, n);
-    segregate(arr, 0, n - 1);
-    printArr(arr, n);
-    return (0);
-}
+// int main() {
+//     int n = 8;
+//     int arr [] = {9, -3, 5, -2, -8, -6, 1, 3};
+//     printArr(arr, n);
+//     segregate(arr, 0, n - 1);
+//     printArr(arr, n);
+//     return (0);
+// }

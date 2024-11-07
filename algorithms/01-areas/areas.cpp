@@ -1,8 +1,4 @@
-#include <iostream>
-#include <cmath>
-#include <iomanip>
-
-using namespace std;
+#include "../main.h"
 
 float calculateTrapezoidArea(){
     cout << "calculate trapezoid area";
@@ -40,8 +36,8 @@ float calculateCircleArea(){
     cin >> r;
     return M_PI * r * r;
 }
-int main() {
-    double result = calculateParllelogramArea();
-    cout << fixed << setprecision(6) << result << endl;
-    return 0;
-}
+// int main() {
+//     double result = calculateParllelogramArea();
+//     cout << fixed << setprecision(6) << result << endl;
+//     return 0;
+// }
