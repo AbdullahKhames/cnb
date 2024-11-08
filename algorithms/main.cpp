@@ -1,15 +1,15 @@
 #include "main.h"
 
 int main() {
-    StringNode *head = createStringLinkedList("ahmed");
-    addToStringLinkedList(head, "abdullah");
-    addToStringLinkedList(head, "mohamed");
-    addToStringLinkedList(head, "amr");
-    addToStringLinkedList(head, "mahmoud");
-    printStringLinkedList(head);
-    head = deleteFromStringLinkedList(head, 4);
-    printStringLinkedList(head);
-    // StringNode* node = getFromStringLinkedList(head, 4);
+    Node<string>* head = createLinkedList(string("ahmed"));
+    addToLinkedList(head,string("abdullah"));
+    addToLinkedList(head,string("mohamed"));
+    addToLinkedList(head,string("amr"));
+    addToLinkedList(head,string("mahmoud"));
+    printLinkedList(head);
+    head = deleteFromLinkedList(head, 4);
+    printLinkedList(head);
+    // Node* node = getFromLinkedList(head, 4);
     // if (node) {
     //     cout << node->data << endl;
     // }

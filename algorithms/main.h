@@ -24,27 +24,6 @@ typedef struct SampleData{
 // StringNode* deleteFromStringLinkedList(StringNode* head, int index);
 // void printStringLinkedList(StringNode* head);
 
-template <typename T>
-struct Node {
-    T data;
-    Node* next;
-};
-
-template <typename T>
-Node<T>* createLinkedList(T data);
-
-template <typename T>
-Node<T>* addToLinkedList(Node<T>* head, T data);
-
-template <typename T>
-Node<T>* getFromLinkedList(Node<T>* head, int index);
-
-template <typename T>
-Node<T>* deleteFromLinkedList(Node<T>* head, int index);
-
-template <typename T>
-void printLinkedList(Node<T>* head);    
-
 float calculateTrapezoidArea();
 float calculateParllelogramArea();
 float calculateCircleArea();
@@ -68,4 +47,5 @@ void segregate1(int *arr, int n);
 void segregateWithMerge(int *arr, int start, int mid, int end);
 void segregate(int *arr, int start, int end);
 int* activityselectionAlgo(int *start, int *end, int size);
+#include "utils/linkedList.h"
 #endif
