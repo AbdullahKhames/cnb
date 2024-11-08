@@ -13,16 +13,38 @@ typedef struct SampleData{
     int size;
 }SampleData;
 
-typedef struct StringNode{
-    string data;
-    StringNode *next;
-}StringNode;
+// typedef struct StringNode{
+//     string data;
+//     StringNode *next;
+// }StringNode;
 
-StringNode* createStringLinkedList(string data);
-StringNode* addToStringLinkedList(StringNode* head, string data);
-StringNode* getFromStringLinkedList(StringNode* head, int index);
-StringNode* deleteFromStringLinkedList(StringNode* head, int index);
-void printStringLinkedList(StringNode* head);
+// StringNode* createStringLinkedList(string data);
+// StringNode* addToStringLinkedList(StringNode* head, string data);
+// StringNode* getFromStringLinkedList(StringNode* head, int index);
+// StringNode* deleteFromStringLinkedList(StringNode* head, int index);
+// void printStringLinkedList(StringNode* head);
+
+template <typename T>
+struct Node {
+    T data;
+    Node* next;
+};
+
+template <typename T>
+Node<T>* createLinkedList(T data);
+
+template <typename T>
+Node<T>* addToLinkedList(Node<T>* head, T data);
+
+template <typename T>
+Node<T>* getFromLinkedList(Node<T>* head, int index);
+
+template <typename T>
+Node<T>* deleteFromLinkedList(Node<T>* head, int index);
+
+template <typename T>
+void printLinkedList(Node<T>* head);    
+
 float calculateTrapezoidArea();
 float calculateParllelogramArea();
 float calculateCircleArea();
