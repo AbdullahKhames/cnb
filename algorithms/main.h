@@ -48,4 +48,5 @@ void segregateWithMerge(int *arr, int start, int mid, int end);
 void segregate(int *arr, int start, int end);
 int* activityselectionAlgo(int *start, int *end, int size);
 #include "utils/linkedList.h"
+#include "utils/hashtable.h"
 #endif
