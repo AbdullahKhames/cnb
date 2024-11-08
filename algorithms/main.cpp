@@ -1,11 +1,11 @@
 #include "main.h"
 
 int main() {
-    Node<string>* head = createLinkedList(string("ahmed"));
-    addToLinkedList(head,string("abdullah"));
-    addToLinkedList(head,string("mohamed"));
-    addToLinkedList(head,string("amr"));
-    addToLinkedList(head,string("mahmoud"));
+    Node<const char*>* head = createLinkedList("ahmed");
+    addToLinkedList(head,("abdullah"));
+    addToLinkedList(head,("mohamed"));
+    addToLinkedList(head,("amr"));
+    addToLinkedList(head,("mahmoud"));
     printLinkedList(head);
     head = deleteFromLinkedList(head, 4);
     printLinkedList(head);
