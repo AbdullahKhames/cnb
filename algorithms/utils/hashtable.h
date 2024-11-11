@@ -1,42 +1,19 @@
 #ifndef HASHTABLE_H
 #define HASHTABLE_H
-#include "linkedList.h"
-#include <iostream>
+#include "../main.h"
 
-const long int ARRAY_SIZE = 1024;
-
-struct StringHashtableItem {
-    const char* key;
-    const char* value;
-};
-struct StringHashtable {
-    Node<StringHashtableItem*> **array;
-    long int size;
-    int count;
-};
-
-
-unsigned long hash_djb2(const char *str)
-{
-    unsigned long hash = 5381;
-    int c;
-
-    while (c = *str++)
-        hash = ((hash << 5) + hash) + c; /* hash * 33 + c */
-
-    return hash;
+template <typename KeyType>
+unsigned long hashKey(KeyType key, long int size) {
+    hash<KeyType> hasher;
+    return hasher(key) % size;
 }
 
-unsigned long hashString(const char* key, long int size) {
-    return hash_djb2(key) % size;
-}
-
-
-StringHashtable* createHashTable() {
-    StringHashtable* table = (StringHashtable*) malloc(sizeof(StringHashtable));
+template <typename KeyType, typename ValueType>
+Hashtable<KeyType, ValueType>* createHashTable() {
+    Hashtable<KeyType, ValueType>* table = (Hashtable<KeyType, ValueType>*) malloc(sizeof(Hashtable<KeyType, ValueType>));
     table->size = ARRAY_SIZE;
     table->count = 0;
-    table->array = (Node<StringHashtableItem*>**) calloc(table->size, sizeof(Node<StringHashtableItem*>*));
+    table->array = (Node<HashtableItem<KeyType, ValueType>*>**) calloc(table->size, sizeof(Node<HashtableItem<KeyType, ValueType>*>*));
 
     for (int i = 0; i < table->size; i++)
         table->array[i] = NULL;
@@ -45,15 +22,16 @@ StringHashtable* createHashTable() {
 
 }
 
-void put(StringHashtable *table, const char* key, const char* value) {
+template <typename KeyType, typename ValueType>
+void put(Hashtable<KeyType, ValueType> *table, KeyType key, ValueType value) {
     if (!table || !table->array || !key) {
         return;
     }
-    long int hash  = hashString(key, table->size);
-    StringHashtableItem *item = (StringHashtableItem*) malloc(sizeof(StringHashtableItem));
+    unsigned long hash  = hashKey<KeyType>(key, table->size);
+    HashtableItem<KeyType, ValueType> *item = (HashtableItem<KeyType, ValueType>*) malloc(sizeof(HashtableItem<KeyType, ValueType>));
     item->key = key;
     item->value = value;
-    Node<StringHashtableItem*> *newnode = (Node<StringHashtableItem*>*)malloc(sizeof(Node<StringHashtableItem*>));
+    Node<HashtableItem<KeyType, ValueType>*> *newnode = (Node<HashtableItem<KeyType, ValueType>*>*)malloc(sizeof(Node<HashtableItem<KeyType, ValueType>*>));
     newnode->data = item;
     newnode->next = NULL;
     if (table->array[hash] == NULL)
@@ -61,13 +39,14 @@ void put(StringHashtable *table, const char* key, const char* value) {
         table->array[hash] = newnode;
         table->count++;
     }else {
-        Node<StringHashtableItem*> *temp = table->array[hash];
+        Node<HashtableItem<KeyType, ValueType>*> *temp = table->array[hash];
         while (temp->next)
         {
             if (temp->data->key == key)
             {
                 temp->data->value == value;
-                table->count++;
+                free(item);
+                free(newnode);
                 return;
             }
             temp = temp->next;
@@ -76,7 +55,8 @@ void put(StringHashtable *table, const char* key, const char* value) {
         if (temp->data->key == key)
         {
             temp->data->value == value;
-            table->count++;
+            free(item);
+            free(newnode);
             return;
         }
         temp->next = newnode;
@@ -84,21 +64,22 @@ void put(StringHashtable *table, const char* key, const char* value) {
     }
 }
 
-const char* get(StringHashtable *table, const char* key){
+template <typename KeyType, typename ValueType>
+ValueType* get(Hashtable<KeyType, ValueType> *table,  KeyType key){
     if (!table || !table->array || !key) {
         return NULL;
     }
-    long int hash  = hashString(key, table->size);
+    unsigned long hash  = hashKey<KeyType>(key, table->size);
     if (table->array[hash] == NULL)
     {
         return NULL;
     }else {
-        Node<StringHashtableItem*> *temp = table->array[hash];
+        Node<HashtableItem<KeyType, ValueType>*> *temp = table->array[hash];
         while (temp)
         {
             if (temp->data->key == key)
             {
-                return temp->data->value;
+                return &temp->data->value;
             }
             
             temp = temp->next;
@@ -108,7 +89,8 @@ const char* get(StringHashtable *table, const char* key){
     return NULL;
 }
 
-void print(StringHashtable *table) {
+template <typename KeyType, typename ValueType>
+void print(Hashtable<KeyType, ValueType> *table) {
     if (!table || !table->array) {
         return;
     }
@@ -117,7 +99,7 @@ void print(StringHashtable *table) {
     {
         if (table->array[i] != NULL)
         {
-            Node<StringHashtableItem *> *temp = table->array[i];
+            Node<HashtableItem<KeyType, ValueType> *> *temp = table->array[i];
             cout << "index " << i << " node contains  (key -> value) pairs : ";
             while (temp)
             {
@@ -132,35 +114,14 @@ void print(StringHashtable *table) {
         }
     }
 }
-void printStringHashtable(StringHashtable *table) {
-    if (!table || !table->array) {
-        return;
-    }
-    cout << "{";
-    bool firstItem = true;
-    for (int i = 0; i < table->size; i++)
-    {
-        Node<StringHashtableItem *> *temp = table->array[i];
-        while (temp)
-        {
-            if (!firstItem)
-            {
-                cout << ", ";
-            }
-            cout << "'" << temp->data->key << "': '" << temp->data->value  << "'";
-            firstItem = false;
-            temp = temp->next;
-        }
-    }
-    cout << "}" << endl;
-}
 
-void deleteFromStringHashTable(StringHashtable *table, const char * key) {
+template <typename KeyType, typename ValueType>
+void deleteFromHashTable(Hashtable<KeyType, ValueType> *table, KeyType key) {
     if (!table || !table->array || !key) {
         return;
     }
-    long int hash = hashString(key, table->size);
-    Node<StringHashtableItem*> *prev = table->array[hash];
+    unsigned long hash = hashKey<KeyType>(key, table->size);
+    Node<HashtableItem<KeyType, ValueType>*> *prev = table->array[hash];
     if (prev && prev->next)
     {
         if (prev->data->key == key)
@@ -168,9 +129,10 @@ void deleteFromStringHashTable(StringHashtable *table, const char * key) {
             table->array[hash] = prev->next;
             free(prev->data);
             free(prev);
+            table->count--;
             return;
         }
-        Node<StringHashtableItem*> *temp = prev->next;
+        Node<HashtableItem<KeyType, ValueType>*> *temp = prev->next;
         
         while (prev && temp)
         {
@@ -179,6 +141,7 @@ void deleteFromStringHashTable(StringHashtable *table, const char * key) {
                 prev->next = temp->next;
                 free(temp->data);
                 free(temp);
+                table->count--;
                 return;
             }
             temp = temp->next;
@@ -188,8 +151,10 @@ void deleteFromStringHashTable(StringHashtable *table, const char * key) {
     {
         free(prev->data);
         free(prev);
+        table->count--;
         table->array[hash] = NULL;
     }
     
 }
+
 #endif

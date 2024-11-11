@@ -1,11 +1,7 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
-template <typename T>
-struct Node {
-    T data;
-    Node* next;
-};
+
 
 template <typename T>
 Node<T>* createLinkedList(T data) {
