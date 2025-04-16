@@ -113,7 +113,6 @@ void mergeTwoDimension(int **arr, int start, int mid, int end) {
         rightArr[j][0] = arr[mid + 1 + j][0];
         rightArr[j][1] = arr[mid + 1 + j][1];
     }
-    cout << "created arrays "<<endl;
     
     i = 0;
     j = 0;

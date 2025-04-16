@@ -197,20 +197,16 @@ void deleteHashTable(Hashtable<KeyType, ValueType> *table)
                 HashtableItem<KeyType, ValueType> *data = temp->data;
                 if (data)
                 {
-                    cout << "deleting temp data" << endl;
                     delete data;
                 }
-                cout << "deleting temp" << endl;
                 delete temp;
                 temp = next;
             }
             HashtableItem<KeyType, ValueType> *data = firstNode->data;
             if (data)
             {
-                cout << "deleting firstNode data" << endl;
                 delete data;
             }
-            cout << "deleting firstNode" << endl;
             delete firstNode;
         }
     }
