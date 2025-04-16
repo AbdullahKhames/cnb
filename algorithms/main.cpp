@@ -54,8 +54,20 @@ void testIntHashhTAble(){
 
 
 int main() {
-
-    testIntHashhTAble();
-
+    Hashtable<char, int>* table = charFreqTable("Hello World");
+    print<char, int>(table);
+    int size = table->count;
+    int **arr = toIntTwoDimensionsArray(table);
+    print<char, int>(table);
+    deleteHashTable<char, int>(table);
+    for (size_t i = 0; i < size; i++)
+    {
+        cout << "key " << (char)arr[i][0] << " value is : " << arr[i][1] << endl;
+    }
+    mergeSortTwoDimension(arr, size);
+    for (size_t i = 0; i < size; i++)
+    {
+        cout << "key " << (char)arr[i][0] << " value is : " << arr[i][1] << endl;
+    }
     return (0);
 }

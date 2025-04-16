@@ -71,7 +71,11 @@ float standardDeviation();
 void printArr(int *arr, int n);
 int* createIntArr(int n);
 void insertionSort(int *arr, int n);
+void mergeTwoDimension(int **arr, int start, int mid, int end);
+void mergeSortTwoDimension(int **arr, int size);
+void mergeSortTwoDimension(int **arr, int start, int end);
 void merge(int *arr, int start, int mid, int end);
+void mergeSort(int *arr, int size);
 void mergeSort(int *arr, int start, int end);
 int binarySearch(int arr[], int n, int target);
 void swap(int *arr, int x, int y );
@@ -87,6 +91,7 @@ void putStringHashTable(StringHashtable *table, const char* key, const char* val
 const char* getStringHashTable(StringHashtable *table, const char* key);
 void printStringHashtable(StringHashtable *table);
 void deleteFromStringHashTable(StringHashtable *table, const char * key);
+Hashtable<char, int>* charFreqTable(string message);
 #include "utils/linkedList.h"
 #include "utils/hashtable.h"
 #endif

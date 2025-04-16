@@ -63,6 +63,11 @@ void merge(int *arr, int start, int mid, int end) {
     free(rightArr);
 }
 
+void mergeSort(int *arr, int size) {
+    mergeSort(arr, 0, size - 1);
+}
+
+
 void mergeSort(int *arr, int start, int end) {
     if (start >= end){
         return;
@@ -73,6 +78,88 @@ void mergeSort(int *arr, int start, int end) {
     merge(arr, start, mid, end);
 }
 
+
+
+void mergeSortTwoDimension(int **arr, int size) {
+    mergeSortTwoDimension(arr, 0, size - 1);
+}
+
+
+void mergeSortTwoDimension(int **arr, int start, int end) {
+    if (start >= end){
+        return;
+    }
+    int mid = start + (end - start) / 2;
+    mergeSortTwoDimension(arr, start, mid);
+    mergeSortTwoDimension(arr, mid + 1, end);
+    mergeTwoDimension(arr, start, mid, end);
+}
+
+void mergeTwoDimension(int **arr, int start, int mid, int end) {
+    int i, j, k;
+    int leftLength = mid + 1 - start;
+    int rightLength = end - mid;
+    int **leftArr = (int **) malloc(sizeof(int *) * leftLength);
+    int **rightArr = (int **) malloc(sizeof(int *) * rightLength);
+    for (i = 0; i < leftLength; i++)
+    {
+        leftArr[i] = (int *)malloc(2 * sizeof(int));
+        leftArr[i][0] = arr[start + i][0];
+        leftArr[i][1] = arr[start + i][1];
+    }
+    for (j = 0; j < rightLength; j++)
+    {
+        rightArr[j] = (int *)malloc(2 * sizeof(int));
+        rightArr[j][0] = arr[mid + 1 + j][0];
+        rightArr[j][1] = arr[mid + 1 + j][1];
+    }
+    cout << "created arrays "<<endl;
+    
+    i = 0;
+    j = 0;
+    k = start;
+    while (i < leftLength && j < rightLength) {
+        if (leftArr[i][1] <= rightArr[j][1])
+        {
+            arr[k][0] = leftArr[i][0];
+            arr[k][1] = leftArr[i][1];
+            i++; k++;
+        }
+        else {
+            arr[k][0] = rightArr[j][0];
+            arr[k][1] = rightArr[j][1];
+            j++; k++;
+        }
+    }
+
+    while (i < leftLength)
+    {
+        arr[k][0] = leftArr[i][0];
+        arr[k][1] = leftArr[i][1];
+        k++;
+        i++;
+    }
+
+    while (j < rightLength)
+    {
+        arr[k][0] = rightArr[j][0];
+        arr[k][1] = rightArr[j][1];
+        k++;
+        j++;
+    }
+    for (int i = 0; i < leftLength; i++)
+    {
+        free(leftArr[i]);
+
+    }
+    for (int i = 0; i < rightLength; i++)
+    {
+        free(rightArr[i]);
+
+    }
+    free(leftArr);
+    free(rightArr);
+}
 
 // int main() {
 //     // cout << "enter size of the array to be sorted" << endl;
