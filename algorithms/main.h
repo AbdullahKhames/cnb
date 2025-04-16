@@ -92,6 +92,7 @@ const char* getStringHashTable(StringHashtable *table, const char* key);
 void printStringHashtable(StringHashtable *table);
 void deleteFromStringHashTable(StringHashtable *table, const char * key);
 Hashtable<char, int>* charFreqTable(string message);
+void sortedCharacterFrequencies();
 #include "utils/linkedList.h"
 #include "utils/hashtable.h"
 #endif
