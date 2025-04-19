@@ -5,7 +5,7 @@
 #include <cmath>
 #include <iomanip>
 #include <string.h>
-
+#include <vector>
 #include <limits.h>
 using namespace std;
 
@@ -69,7 +69,7 @@ class Item {
         int index;
     
         Item() : price(0), weight(0), ratio(0), index(0) {}
-    
+        Item(int index, float weight, float price) : price(price), weight(weight), ratio(0), index(index) {}
         Item(float price, float weight, float ratio, int index) : price(price), weight(weight), ratio(ratio), index(index) {}
     };
     
@@ -121,6 +121,7 @@ float fractionalKnapSackProblem(int *prices, int *weights, int size, int maxWeig
 void sortItems(Item **arr, int size);
 int longestCommonSubsequence(string text1, string text2);
 void playWithFractionalKnapSack();
+void playWithKnapSack();
 #include "utils/linkedList.h"
 #include "utils/hashtable.h"
 #endif

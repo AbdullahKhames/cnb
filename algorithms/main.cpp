@@ -54,6 +54,6 @@ void testIntHashhTAble(){
 
 
 int main() {
-    playWithFractionalKnapSack();
+    playWithKnapSack();
     return (0);
 }
