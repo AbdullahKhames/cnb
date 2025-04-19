@@ -54,6 +54,6 @@ void testIntHashhTAble(){
 
 
 int main() {
-    sortedCharacterFrequencies();
+    playWithFractionalKnapSack();
     return (0);
 }
