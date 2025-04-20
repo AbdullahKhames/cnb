@@ -1,12 +1,13 @@
 #ifndef MAIN_H
 #define MAIN_H
-
+#include <climits>
 #include <iostream>
 #include <cmath>
 #include <iomanip>
 #include <string.h>
 #include <vector>
 #include <limits.h>
+
 using namespace std;
 
 typedef struct SampleData{
@@ -122,6 +123,8 @@ void sortItems(Item **arr, int size);
 int longestCommonSubsequence(string text1, string text2);
 void playWithFractionalKnapSack();
 void playWithKnapSack();
+void primsMST();
+void breadthFirstSearch();
 #include "utils/linkedList.h"
 #include "utils/hashtable.h"
 #endif

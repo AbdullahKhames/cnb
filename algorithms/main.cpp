@@ -54,6 +54,6 @@ void testIntHashhTAble(){
 
 
 int main() {
-    playWithKnapSack();
+    primsMST();
     return (0);
 }
