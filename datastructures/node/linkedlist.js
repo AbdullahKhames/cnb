@@ -91,7 +91,7 @@ class LinkedList {
         }
         this.size++;
     }
-    inserFirstt(value) {
+    inserFirst(value) {
         if (this.uniqe && this.isExist(value)) {
             console.log('Value already exists in the list');
             return;
@@ -169,6 +169,21 @@ class LinkedList {
             this.size--;
         } else {
             console.log('Target node not found');
+        }
+    }
+    deleteHead() {
+        if (this.head) {
+            const nodeToDelete = this.head;
+            this.head = this.head.next;
+            if (this.head) {
+                this.head.prev = null;
+            } else {
+                this.tail = null; // List is now empty
+            }
+            this.size--;
+            return nodeToDelete;
+        } else {
+            console.log('List is empty');
         }
     }
     isExist(value) {
