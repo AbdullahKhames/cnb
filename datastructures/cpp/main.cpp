@@ -1,6 +1,6 @@
 #include "main.h"
 
 int main() {
-  playWithStack();
+  playWithQueueArray();
   return (0);
 }

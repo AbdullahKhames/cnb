@@ -240,6 +240,21 @@ int GnericDoublyLinkedList<T>::size() {
     return this->length;
 }
 
+template <class T>
+void GnericDoublyLinkedList<T>::deleteHead() {
+    if (!this->head) {
+        throw std::logic_error("List is empty!"); // Throw only if the list is empty
+    }
+
+    GnericDoublyLinkedListNode<T> *val = this->head;
+    if (this->head->next) {
+        this->head->next->prev = nullptr;
+    }
+    this->head = this->head->next;
+
+    delete val; // Free the memory of the removed node
+    this->length--;
+}
 void playWithGnericDoublyLinkedList() {
     GnericDoublyLinkedList<int> list;
 
@@ -299,6 +314,11 @@ void playWithGnericDoublyLinkedList() {
     std::cout << "\nsize of linked list is: \n" << list.size();
     std::cout << "\nsize of linked list is: \n" << list.length;
 
+    // Delete head
+    std::cout << "\nDeleting head:\n";
+    list.deleteHead();
+    list.printList();
+    
     // Delete node by index
     std::cout << "\nDeleting node at index 3:\n";
     list.deleteNodeByIdx(3);

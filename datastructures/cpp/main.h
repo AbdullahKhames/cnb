@@ -5,4 +5,5 @@
 #include "doublylinkedlist.h"
 #include "genericlinkedlist.h"
 #include "stack.h"
+#include "queue.h"
 #endif

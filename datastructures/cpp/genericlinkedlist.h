@@ -40,6 +40,7 @@ public:
   GnericDoublyLinkedListNode<T> *get(int idx);
   void deleteNodeByIdx(int idx);
   void deleteNodeByValue(T value);
+  void deleteHead();
 };
 void playWithGnericDoublyLinkedList();
 #endif
