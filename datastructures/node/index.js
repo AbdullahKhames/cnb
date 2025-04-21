@@ -1,8 +1,8 @@
 import LinkedList from './linkedlist.js';
-import Stack from './stack.js';
+import { Stack, StackArrayBased } from './stack.js';
 
 
-const stack = new Stack(true);
+const stack = new StackArrayBased();
 console.log("isEmpty " + stack.isEmpty());
 
 

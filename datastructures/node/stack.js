@@ -36,4 +36,45 @@ class Stack {
         this.#list.printList();
     }
 }
-export default Stack;
+
+class StackArrayBased {
+    #data;
+    #top;
+    constructor() {
+        this.#data = [];
+        this.#top = -1;
+    }
+    push(value) {
+        this.#data.push(value);
+        ++this.#top;
+    }
+    pop() {
+        if (this.#top < 0) {
+            return null;
+        }
+        const value = this.#data.splice(this.#top, 1)[0];
+        --this.#top;
+        return value;
+    }
+    peek() {
+        if (this.#top < 0) {
+            return null;
+        }
+        return this.#data[this.#top];
+    }
+    isEmpty() {
+        return this.#top < 0;
+    }
+    print() {
+        let res = '';
+        for (let i = this.#top; i >= 0; --i) {
+            res += this.#data[i] + ' -> ';
+        }
+        res += 'null';
+        console.log(res);
+    }
+    size () {
+        return this.#top + 1;
+    }
+}
+export { Stack, StackArrayBased };
