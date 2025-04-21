@@ -1,6 +1,6 @@
 #include "main.h"
 
 int main() {
-  playWithDoublyLinkedList();
+  playWithGnericDoublyLinkedList();
   return (0);
 }

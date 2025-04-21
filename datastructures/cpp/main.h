@@ -3,5 +3,6 @@
 
 #include "linkedlist.h"
 #include "doublylinkedlist.h"
+#include "genericlinkedlist.h"
 
 #endif
