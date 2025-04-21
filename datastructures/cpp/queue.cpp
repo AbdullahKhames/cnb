@@ -225,9 +225,9 @@ void playWithQueueArray() {
     // Print the queue after dequeue
     queue.print();
 
-    queue.enqueue(10);
-    queue.enqueue(20);
-    queue.enqueue(30);
+    queue.enqueue(78);
+    queue.enqueue(25);
+    queue.enqueue(41);
     queue.print();
     while (!queue.isEmpty())
     {
