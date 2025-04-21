@@ -36,4 +36,6 @@ public:
   void deleteNodeByIdx(int idx);
   void deleteNodeByValue(int val);
 };
+
+void playWithLinkedList();
 #endif
