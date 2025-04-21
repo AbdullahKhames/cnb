@@ -1,6 +1,6 @@
 #include "main.h"
 
 int main() {
-  playWithQueueArray();
+  playWithDictionary();
   return (0);
 }

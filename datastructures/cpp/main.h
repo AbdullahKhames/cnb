@@ -6,4 +6,5 @@
 #include "genericlinkedlist.h"
 #include "stack.h"
 #include "queue.h"
+#include "dictionary.h"
 #endif
