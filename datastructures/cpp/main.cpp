@@ -1,6 +1,6 @@
 #include "main.h"
 
 int main() {
-  playWithDictionary();
+  playWithHashing();
   return (0);
 }

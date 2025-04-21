@@ -7,4 +7,5 @@
 #include "stack.h"
 #include "queue.h"
 #include "dictionary.h"
+#include "hash.h"
 #endif
