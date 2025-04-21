@@ -4,5 +4,5 @@
 #include "linkedlist.h"
 #include "doublylinkedlist.h"
 #include "genericlinkedlist.h"
-
+#include "stack.h"
 #endif
