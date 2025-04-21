@@ -186,8 +186,13 @@ void LinkedList::deleteNodeByValue(int value) {
         curr = it.getCurrent();
         if (curr->data == value)
         {
-            if (!prev) {
-                this->head = curr->next;
+            if (this->head == this->tail) {
+                this->head = nullptr;
+                this->tail = nullptr;
+                delete curr;
+                break;
+            } else if (!prev) {
+                head = curr->next;
                 delete curr;
                 break;
             } else if (curr == this->tail)
@@ -217,9 +222,13 @@ void LinkedList::deleteNodeByIdx(int idx) {
     for (LinkedListIterator it = this->begin(); it.getCurrent() != nullptr; it = it.next())
     {
         curr = it.getCurrent();
-        if (idx == count)
-        {
-            if (!prev) {
+        if (idx == count) {
+            if (this->head == this->tail) {
+                this->head = nullptr;
+                this->tail = nullptr;
+                delete curr;
+                break;
+            } else if (!prev) {
                 head = curr->next;
                 delete curr;
                 break;
