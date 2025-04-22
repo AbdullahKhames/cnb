@@ -9,4 +9,5 @@
 #include "dictionary.h"
 #include "hash.h"
 #include "hashtable.h"
+#include "binaryTree.h"
 #endif

@@ -1,6 +1,6 @@
 #include "main.h"
 
 int main() {
-  playWithHashTable();
+  playWithBinaryTree();
   return (0);
 }
