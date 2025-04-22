@@ -34,7 +34,7 @@ class HashTable {
     public:
         HashTable() {
             this->currentSize = 0;
-            this->totalSize = 2;
+            this->totalSize = 21;
 
             // 1. Allocate the array of pointers (size = totalSize)
             entries = new KeyValuePair*[this->totalSize]; 
