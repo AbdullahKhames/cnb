@@ -6,99 +6,135 @@ void HashTable<T, V>::increaseSizeIfNeeded() {
     {
         return;
     }
-    this->totalSize += this->currentSize;
+    int current = this->currentSize;
+    KeyValuePair **copyArray = new KeyValuePair*[this->currentSize];
+    for (int i = 0; i < this->currentSize; ++i) {
+        copyArray[i] = this->entries[i]; 
+    }
+    this->totalSize *= 2;
+    cout << "resize from " << this->currentSize << " to " << this->totalSize << endl;
     KeyValuePair **newArray = new KeyValuePair*[this->totalSize];
     for (int i = 0; i < this->totalSize; ++i) {
         newArray[i] = nullptr; 
     }
-    std::copy(this->entries, this->entries + this->currentSize, newArray);
     this->entries = newArray;
+    this->currentSize = 0;
+    for (int i = 0; i < current; i++)
+    {
+        if (copyArray[i] != nullptr)
+        {
+            this->addToEntries(copyArray[i]->key, copyArray[i]->value);
+        }
+        
+    }
 }
 
-
-template<class T, class V>
-int HashTable<T, V>::size() const{
-    return this->currentSize;
-}
 template<class T, class V>
 int HashTable<T, V>::hash(T key) {
-    Hash hash;
-    uint32_t  hashVal = hash.Hash32();
+    uint32_t  hashVal = this->hasher.hash32(key);
     return hashVal % this->totalSize;
 }
 template<class T, class V>
 int HashTable<T, V>::collisionHandling(T key, int hash, bool set) {
 
+    cout << " collision occured old hash value ! " << hash << endl; 
     int newHash = -1;
     for (int i = 1; i < this->totalSize; i++) {
         newHash = (hash + i) % this->totalSize;
   
-        if (set && ((this->entries[newHash]->key == "" &&
-                     this->entries[newHash].value == "") ||
-                    this->entries[newHash]->key == key)) {
+        if (set && (
+            (this->entries[newHash] == nullptr) ||
+                    this->entries[newHash]->key == key
+                )) {
+        cout << " collision occured newHash value ! " << newHash << endl; 
           return newHash;
-        } else if (!set && this->entries[newHash]->key == key) {
-          return newHash;
+        } else if (!set && this->entries[newHash] && this->entries[newHash]->key == key) {
+            cout << " collision occured newHash value ! " << newHash << endl; 
+            return newHash;
         }
-      }
+    }
+
     return -1;
     
 }
+
 template<class T, class V>
 int HashTable<T, V>::size() const{
     return this->currentSize;
 }
-template<class T, class V>
-int HashTable<T, V>::size() const{
-    return this->currentSize;
+
+template <class T, class V>
+void HashTable<T, V>::addToEntries(T key, V value) {
+    int hash = this->hash(key);
+    if (this->entries[hash] != nullptr && this->entries[hash]->key != key)
+    {
+        hash = this->collisionHandling(key, hash, true);
+    }
+    if (hash == -1)
+    {
+        throw new runtime_error("invalid hashtable!");
+    }
+    if (this->entries[hash] == nullptr)
+    {
+        KeyValuePair *newPair = new KeyValuePair(key, value);
+        this->entries[hash] = newPair;
+        this->currentSize++;
+    } else if (this->entries[hash]->key == key)
+    {
+        this->entries[hash]->value = value;
+    } else {
+        throw new runtime_error("invalid hashtable!");
+    }
 }
 
 template <class T, class V>
 void HashTable<T, V>::set(T key, V value) {
     this->increaseSizeIfNeeded();
-    for (int i = 0; i < this->totalSize; i++)
-    {
-        if (this->entries[i] && key == this->entries[i]->getKey())
-        {
-            this->entries[i]->setValue(value);
-            return;
-        }
-    }
-    KeyValuePair *newPair = new KeyValuePair(key, value);
-    this->entries[this->currentSize++] = newPair;
+    this->addToEntries(key, value);
 }
 
 template <class T, class V>
-optional<V> HashTable<T, V>::get(T key) const {
-    for (int i = 0; i < this->totalSize; i++)
+optional<V> HashTable<T, V>::get(T key) {
+    int hash = this->hash(key);
+    if (this->entries[hash] == nullptr)
     {
-        if (this->entries[i] && key == this->entries[i]->getKey())
-        {
-            return this->entries[i]->getValue();
-        }
+        return std::nullopt;
     }
-    return std::nullopt;
+    if (this->entries[hash]->key != key)
+    {
+        hash = this->collisionHandling(key, hash, false);
+    }
+    if (hash == -1)
+    {
+        return std::nullopt;
+    }
+    
+    return this->entries[hash]->value;
 }
 
 template <class T, class V>
 bool HashTable<T, V>::remove(T key) {
-    for (int i = 0; i < this->totalSize; i++)
+    int hash = this->hash(key);
+    if (this->entries[hash] == nullptr)
     {
-        if (this->entries[i] && key == this->entries[i]->getKey())
-        {
-            int lastIndex = this->currentSize - 1;
-            this->entries[i] = this->entries[lastIndex];
-            // if constexpr (std::is_pointer_v<V>) {
-            //     this->entries[lastIndex] = nullptr;
-            // } else if constexpr (std::is_class_v<V>) {
-            //     this->entries[lastIndex] = KeyValuePair();
-            // } else {
-            //     this->entries[lastIndex] = KeyValuePair();
-            // }
-            this->entries[lastIndex] = nullptr;
-            this->currentSize--;
-            return true;
-        }
+        return false;
+    }
+    if (this->entries[hash]->key != key)
+    {
+        hash = this->collisionHandling(key, hash, false);
+    }
+    if (hash == -1)
+    {
+        return false;
+    }
+    if (this->entries[hash] != nullptr && 
+        this->entries[hash]->key == key)
+    {
+        KeyValuePair *temp = this->entries[hash];
+        this->entries[hash] = nullptr;
+        delete temp;
+        this->currentSize--;
+        return true;
     }
     return false;
 }
@@ -131,11 +167,13 @@ void HashTable<T, V>::print() const {
 }
 
 void playWithHashTable() {
-    HashTable<int, string> *dict = new HashTable<int, string>();
-    dict->set(10, "hamada");
-    cout << "size is : " << dict->size() << endl;
-    cout << "get key found should be hamada : " << dict->get(10).value() << endl;
-    auto val = dict->get(12);
+    HashTable<string, string> *table = new HashTable<string, string>();
+    table->print();
+    table->set("Sinar", "sinar@gmail.com");
+    table->set("Elvis", "elvis@gmail.com");
+    table->set("Tane", "tane@gmail.com");
+    table->print();
+    auto val = table->get("Sinar");
     if (val.has_value())
     {
         cout << "get key found: " << val.value() << endl;
@@ -144,21 +182,19 @@ void playWithHashTable() {
     {
         cout << "get key 12 not found" << endl;
     }
-    dict->set(11, "hamada1");
-    dict->set(12, "hamada2");
-    dict->set(13, "hamada3");
-    dict->set(14, "hamada4");
-    dict->set(15, "hamada5");
-    dict->print();
 
-    dict->remove(10);
-    dict->remove(11);
-    dict->remove(12);
-    dict->remove(13);
-    dict->remove(14);
-    dict->remove(15);
-    dict->print();
-    
-    dict->set(15, "hamada5");
-    dict->print();
+    table->set("Gerti", "gerti@gmail.com");
+    table->set("Arist", "arist@gmail.com");
+    table->print();
+    table->remove("Sinar");
+    val = table->get("Sinar");
+    if (val.has_value())
+    {
+        cout << "get key found: " << val.value() << endl;
+    }
+    else
+    {
+        cout << "get key 12 not found" << endl;
+    }
+    table->print();
 }

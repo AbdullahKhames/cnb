@@ -1,6 +1,6 @@
 #include "hash.h"
 
-uint32_t Hash::Hash32(std::string str) {
+uint32_t Hash::hash32(std::string str) {
     // Constants used for FNV-1 hash algorithm
     uint32_t OffsetBasis = 2166136261;
     uint32_t FNVPrime = 16777619;
@@ -30,7 +30,7 @@ uint32_t Hash::Hash32(std::string str) {
 
 
 
-uint64_t Hash::Hash64(std::string str) {
+uint64_t Hash::hash64(std::string str) {
     // Constants used for FNV-1 hash algorithm
     uint64_t OffsetBasis = 14695981039346656037ull;
     uint64_t FNVPrime = 1099511628211ull;
@@ -60,6 +60,6 @@ uint64_t Hash::Hash64(std::string str) {
 
 void playWithHashing() {
     Hash hash;
-    hash.Hash32("This is Original Text");
-    hash.Hash64("This is Original Text");
+    hash.hash32("This is Original Text");
+    hash.hash64("This is Original Text");
 }
