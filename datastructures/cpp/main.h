@@ -10,4 +10,5 @@
 #include "hash.h"
 #include "hashtable.h"
 #include "binaryTree.h"
+#include "binarySearchTree.h"
 #endif

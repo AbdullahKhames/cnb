@@ -1,6 +1,6 @@
 #include "main.h"
 
 int main() {
-  playWithBinaryTree();
+  playWithBinarySearchTree();
   return (0);
 }
