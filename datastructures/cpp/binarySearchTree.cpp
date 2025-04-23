@@ -327,13 +327,13 @@ void BinarySearchTree<T>::deleteNodeBST_TwoChilds(BinarySearchTreeNode<T> *nodeT
     ParentAndNode<T> *inOrderSucc = this->inOrderSuccessor(nodeToDelete->getRight());
     if (inOrderSucc)
     {
-        cout << "found parent and node : " 
-            << inOrderSucc->parent->getData()
-            << " "
-            << inOrderSucc->node->getData()
-            << " "
-            << inOrderSucc->isLeft
-            << endl;
+        // cout << "found parent and node : " 
+        //     << inOrderSucc->parent->getData()
+        //     << " "
+        //     << inOrderSucc->node->getData()
+        //     << " "
+        //     << inOrderSucc->isLeft
+        //     << endl;
         if (inOrderSucc->parent != nullptr)
         {
             inOrderSucc->parent->setLeft(inOrderSucc->node->getRight());
